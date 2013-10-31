@@ -7,18 +7,15 @@ set shell=bash
 
 set autoindent
 set backspace=indent,eol,start
-" Case insensitive search
+"R Case insensitive search
 set ic
-
 " Higlhight search
 set hls
 
 " Wrap text instead of being on one line
 set lbr
 
-
 " Vundle config starts
-
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle "daylerees/colour-schemes", { "rtp": "vim-themes/" }
@@ -28,7 +25,7 @@ Bundle 'flazz/vim-colorschemes'
  Bundle 'Lokaltog/vim-easymotion'
  Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
  Bundle 'tpope/vim-rails.git'
- " vim-scripts repos
+ "vim-scripts repos
  Bundle 'L9'
  Bundle 'FuzzyFinder'
  Bundle 'Valloric/YouCompleteMe'
@@ -164,3 +161,34 @@ let g:session_autosave='yes'
 :au BufWinEnter * checktime
 :au TabEnter * checktime
 "Alert end"
+
+"ctrl-s bind to save"
+noremap <C-S> :update<CR>
+vnoremap <C-S> <C-C>:update<CR>
+inoremap <C-S> <C-O>:update<CR>
+
+"ctrl-q to save and quit the session"
+noremap <C-Q> :exit<CR>
+vnoremap <C-Q> <C-C>:exit<CR>
+inoremap <C-Q> <C-O>:exit<CR>
+
+"start vim in insert mode"
+au BufRead,BufNewFile * start
+
+"enable mouse wheel"
+set mouse=a
+
+"ctrl-z to undo
+noremap <C-Z> :undo<CR>
+vnoremap <C-Z> <C-C>:undo<CR>
+inoremap <C-Z> <C-O>:undo<CR>
+
+"ctrl-r to undo
+noremap <C-R> :redo<CR>
+vnoremap <C-R> <C-C>:redo<CR>
+inoremap <C-R> <C-O>:redo>CR>
+
+"ctrl-f to find"
+inoremap <C-f> <Esc>/
+noremap <C-f> <Esc>/
+

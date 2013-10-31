@@ -79,6 +79,7 @@ extend_console 'rails2', (ENV.include?('RAILS_ENV') && !Object.const_defined?('R
   RAILS_DEFAULT_LOGGER = Logger.new(STDOUT)
 end
 
+if defined? ActiveRecord
 # When you're using Rails 3 console, show queries in the console
 # http://rbjl.net/49-railsrc-rails-console-snippets
 extend_console 'rails3', defined?(ActiveSupport::Notifications), false do
@@ -178,12 +179,12 @@ extend_console 'rails3', defined?(ActiveSupport::Notifications), false do
 
   # get a specific route via index or name
   def route(index_or_name)
-    route = case index_or_name
-            when Integer
-              Rails.application.routes.routes[ index_or_name ]
-            when Symbol # named route
-              Rails.application.routes.named_routes.get index_or_name
-            end
+	  case index_or_name
+	  when Integer
+		  Rails.application.routes.routes[ index_or_name ]
+	  when Symbol # named route
+		  Rails.application.routes.named_routes.get index_or_name
+	  end
   end
 
   # access to routeset for easy recognize / generate
@@ -218,6 +219,7 @@ extend_console 'rails3', defined?(ActiveSupport::Notifications), false do
 
 
 
+end
 end
 
 # Add a method pm that shows every method on an object
@@ -269,6 +271,19 @@ module Kernel
        old_puts arg
        $_=arg  # $_ is a global variable, holds the last printed item
    end
+end
+
+#display the mongodb query info on rails console
+
+class DreamLogFormatter < Logger::Formatter
+	  def call(severity, time, progname, msg)
+	  	msg
+	  end
+end
+if defined? Mongoid
+	Mongoid.logger = Logger.new($STDOUTut)
+	Mongoid.logger.formatter =DreamLogFormatter.new
+	Moped.logger = Logger.new($stdout)
 end
 
 
