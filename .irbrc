@@ -275,14 +275,8 @@ end
 
 #display the mongodb query info on rails console
 
-class DreamLogFormatter < Logger::Formatter
-	  def call(severity, time, progname, msg)
-	  	msg
-	  end
-end
 if defined? Mongoid
 	Mongoid.logger = Logger.new($STDOUTut)
-	Mongoid.logger.formatter =DreamLogFormatter.new
 	Moped.logger = Logger.new($stdout)
 end
 
